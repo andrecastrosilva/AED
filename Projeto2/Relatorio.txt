@@ -1,0 +1,14 @@
+HASH_TABLE_CREATE:
+Este código cria uma tabela hash, alocando memória para uma estrutura hash_table_t, inicializando os seus campos e alocando memória para um array de ponteiros hash_table_node_t, que são utilizados como cabeças das listas ligadas que compõem a tabela hash. O tamanho da tabela hash é definido como 101, e o número de entradas e arestas é definido como 0. A função utiliza malloc para alocar memória para a tabela hash e o array de cabeças, e sai com uma mensagem de erro se não conseguir alocar memória. Também percorre o array de cabeças e define cada elemento como NULL. Finalmente, a função devolve um ponteiro para a tabela hash criada.
+
+HASH_TABLE_GROW:
+Este código é uma função que aumenta o tamanho de uma tabela hash existente por um fator de dois. Começa por salvar o tamanho atual e o array de cabeças da tabela hash. De seguida, ele dobra o tamanho da tabela hash e aloca memória para o novo array de cabeças. Se não conseguir alocar memória para o novo array de cabeças, ele restaurará o antigo array de cabeças e retorna o tamanho.
+Depois inicializa todos os elementos no novo array de cabeças como NULL. De seguida, ele itera sobre o antigo array de cabeças, rehashing cada nó na nova tabela.
+Isto é feito salvando o próximo nó na lista ligada, depois pegando o nó atual, usando a função crc32 para calcular um novo índice para o nó na nova tabela, atualizando o ponteiro next, e adicionando o nó ao novo array de cabeças no índice calculado.
+Finalmente, ele liberta a memória usada pelo antigo array de cabeças.
+
+HASH_TABLE_FREE:
+Este código é uma função que liberta a memória usada por uma tabela hash. Ele começa por iterar sobre o array de cabeças da tabela hash, libertando os nós da lista ligada de cada elemento.
+Para cada cabeça, ele salva o próximo nó na lista ligada, de seguida libera a memória usada pela lista de adjacência do nó atual iterando sobre ela e liberando cada adjacency_node_t.
+De seguida, ele libera a memória usada pelo nó atual e segue para o próximo.
+Finalmente, ele libera a memória usada pelo array de cabeças e pela própria tabela hash.
